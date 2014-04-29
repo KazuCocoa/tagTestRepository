@@ -2,12 +2,12 @@ CURRENT_TAG_SIZE = 8
 
 
 if (!args[0]) {
-  println "command: $ groovy rollback.groovy stableTagName newTagName"
+  println 'command: $ groovy rollback.groovy stableTagName newTagName'
   return false
 }
 
 if (!args[1]) {
-  println "command: $ groovy rollback.groovy stableTagName newTagName"
+  println 'command: $ groovy rollback.groovy stableTagName newTagName'
   return false
 }
 
