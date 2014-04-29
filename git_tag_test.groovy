@@ -1,14 +1,17 @@
+CURRENT_TAG_SIZE = 8
+
+
 if (!args[0]) {
-  println "Please enter exist version code in the repository as 1st argument."
+  println "command: $ groovy rollback.groovy stableTagName newTagName"
   return false
 }
 
 if (!args[1]) {
-  println "Please enter exist version code in the repository as 2nd argument."
+  println "command: $ groovy rollback.groovy stableTagName newTagName"
   return false
 }
 
-def rollbackTag = args[0]
+def stableTagName = args[0]
 def newTagName = args[1]
 
 println "git pull".execute().text
@@ -18,20 +21,20 @@ def tagsOnGit = []
   tagsOnGit.add(line)
 }
 
-if (!tagsOnGit.grep(rollbackTag)) {
-  println "The repository have no " + rollbackTag + " tag."
+if (!tagsOnGit.grep(stableTagName)) {
+  println "The repository have no " + stableTagName + " tag."
   return false
 }
 
 // confirm the latest version code
 // Only new version code
-def latestVersion = tagsOnGit.sort{ it.size() == 8 }.reverse()[0]
+def latestVersion = tagsOnGit.sort{ it.size() == CURRENT_TAG_SIZE }.reverse()[0]
 if (latestVersion >= newTagName){
   println "Your new tag name is not latest one."
   return false
 }
 
-def gitCheckoutTag = "git checkout refs/tags/" + rollbackTag
+def gitCheckoutTag = "git checkout refs/tags/" + stableTagName
 println gitCheckoutTag.execute().text
 
 
