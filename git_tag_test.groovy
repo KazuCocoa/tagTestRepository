@@ -1,14 +1,13 @@
 CURRENT_TAG_SIZE = 8
 
-
-if (!args[0]) {
-  println 'command: $ groovy rollback.groovy stableTagName newTagName'
-  return false
+if (args.size() != 2) {
+    println 'command: $ groovy rollback.groovy stableTagName newTagName'
+    System.exit(0)
 }
 
-if (!args[1]) {
-  println 'command: $ groovy rollback.groovy stableTagName newTagName'
-  return false
+if (args[1].size() != CURRENT_TAG_SIZE) {
+    println 'newTagName should be length of ' + CURRENT_TAG_SIZE
+    System.exit(0)
 }
 
 def stableTagName = args[0]
@@ -52,3 +51,4 @@ println "finish!!"
 
 
 
+setProperty(String, Object)
